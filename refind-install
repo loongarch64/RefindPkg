@@ -264,7 +264,7 @@ ReadKeyPassphrase() {
 
 # Determine what CPU type and EFI bit depth we're using.
 # Sets Platform global variable to lowercase EFI platform code (currently
-# "x64", "ia32", or "aa64") -- the same code used in filenames.
+# "x64", "ia32", "aa64" or "loongarch64") -- the same code used in filenames.
 DeterminePlatform() {
    local CpuType
    case "$OSTYPE" in
@@ -288,6 +288,9 @@ DeterminePlatform() {
       case "$CpuType" in
       aarch64)
          Platform="aa64"
+         ;;
+      loongarch64)
+         Platform="loongarch64"
          ;;
       x86_64)
          Platform="x64"
@@ -384,6 +387,7 @@ CheckForFiles() {
          if [[ $ShimType == "shimx64.efi" || $ShimType == "shim.efi" || $ShimType == "shimx64.efi.signed" ]] ; then
             TargetX64="grubx64.efi"
             TargetAARCH64="grubaa64.efi"
+            TargetLOONGARCH64="grubloongarch64.efi"
             MokManagerSource=$(dirname "$ShimSource")/mm$Platform.efi.signed
             if [[ ! -f "$MokManagerSource" ]] ; then
                 MokManagerSource=$(dirname "$ShimSource")/mm$Platform.efi
@@ -453,10 +457,12 @@ SetVarsForBoot() {
       TargetX64="bootx64.efi"
       TargetIA32="bootia32.efi"
       TargetAARCH64="bootaa64.efi"
+      TargetLOONGARCH64="bootloongarch64.efi"
    else
-      if [[ $ShimType == "shim.efi" || $ShimType == "shimx64.efi" || $ShimType == "shimx64.efi.signed" || $ShimType = "shimaa64.efi" ]] ; then
+      if [[ $ShimType == "shim.efi" || $ShimType == "shimx64.efi" || $ShimType == "shimx64.efi.signed" || $ShimType = "shimaa64.efi"  || $ShimType = "shimloongarch64.efi" ]] ; then
          TargetX64="grubx64.efi"
          TargetAARCH64="grubaa64.efi"
+         TargetLOONGARCH64="grubloongarch64.efi"
       elif [[ $ShimType == "preloader.efi" || $ShimType == "PreLoader.efi" ]] ; then
          TargetX64="loader.efi"
       else
@@ -480,10 +486,12 @@ SetVarsForMsBoot() {
       TargetX64="bootmgfw.efi"
       TargetIA32="bootmgfw.efi"
       TargetAARCH64="bootmgfw.efi"
+      TargetLOONGARCH64="bootmgfw.efi"
    else
-      if [[ $ShimType == "shim.efi" || $ShimType == "shimx64.efi" || $ShimType == "shimaa64.efi" ]] ; then
+      if [[ $ShimType == "shim.efi" || $ShimType == "shimx64.efi" || $ShimType == "shimaa64.efi"  || $ShimType == "shimloongarch64.efi" ]] ; then
          TargetX64="grubx64.efi"
          TargetAARCH64="grubaa64.efi"
+         TargetLOONGARCH64="grubloongarch64.efi"
       elif [[ $ShimType == "preloader.efi" || $ShimType == "PreLoader.efi" ]] ; then
          TargetX64="loader.efi"
       else
@@ -526,6 +534,7 @@ DetermineTargetDir() {
          TargetX64="refind_x64.efi"
          TargetIA32="refind_ia32.efi"
          TargetAARCH64="refind_aa64.efi"
+         TargetLOONGARCH64="refind_loongarch64.efi"
       fi
       Upgrade=1
    fi
@@ -662,6 +671,10 @@ CopyRefindFiles() {
       if [[ $? != 0 && $Platform == "aa64" ]] ; then
          Problems=1
       fi
+      cp "$RefindDir/refind_loongarch64.efi" "$InstallDir/$TargetDir/$TargetLOONGARCH64" 2> /dev/null
+      if [[ $? != 0 && $Platform == "loongarch64" ]] ; then
+         Problems=1
+      fi
       if [[ "$ShimSource" != "none" ]] ; then
          TargetShim="bootx64.efi"
          CopyShimFiles
@@ -699,13 +712,17 @@ CopyRefindFiles() {
       if [[ "$TargetDir" == '/System/Library/CoreServices' ]] ; then
          SetupMacHfs $TargetX64
       fi
-   elif [[ $Platform == 'ia32' || $Platform == 'aa64' ]] ; then
+   elif [[ $Platform == 'ia32' || $Platform == 'aa64' || $Platform == 'loongarch64' ]] ; then
       if [[ $Platform == 'ia32' ]] ; then
          if ! cp "$RefindDir/refind_ia32.efi" "$InstallDir/$TargetDir/$TargetIA32" ; then
             Problems=1
          fi
-      else
+      elif [[ $Platform == 'aa64' ]] ; then
          if ! cp "$RefindDir/refind_aa64.efi" "$InstallDir/$TargetDir/$TargetAARCH64" ; then
+            Problems=1
+         fi
+      else
+         if ! cp "$RefindDir/refind_loongarch64.efi" "$InstallDir/$TargetDir/$TargetLOONGARCH64" ; then
             Problems=1
          fi
       fi
@@ -804,6 +821,10 @@ CreateBootCsvFile() {
       fi
       if [[ "$Platform" == "aarch64" && -d "$InstallDir/$TargetDir" ]] ; then
          echo "$TargetAARCH64,rEFInd Boot Manager,,This is the boot entry for rEFInd" | \
+              $IConv -t UCS-2 > "$InstallDir/$TargetDir/BOOT.CSV"
+      fi
+      if [[ "$Platform" == "loongarch64" && -d "$InstallDir/$TargetDir" ]] ; then
+         echo "$TargetLOONGARCH64,rEFInd Boot Manager,,This is the boot entry for rEFInd" | \
               $IConv -t UCS-2 > "$InstallDir/$TargetDir/BOOT.CSV"
       fi
    fi
@@ -1351,8 +1372,9 @@ AddBootEntry() {
       echo
       echo "ALERT: There were problems running the efibootmgr program! You may need to"
       echo "rename the $Refind binary to the default name (EFI/BOOT/bootx64.efi"
-      echo "on x86-64 systems, EFI/BOOT/bootia32.efi on x86 systems, or"
-      echo "EFI/BOOT/bootaa64.efi on ARM64 systems) to have it run!"
+      echo "on x86-64 systems, EFI/BOOT/bootia32.efi on x86 systems, "
+      echo "EFI/BOOT/bootaa64.efi on ARM64 systems or "
+      echo "EFI/BOOT/bootloongarch64.efi on LoongArch systems.) to have it run!"
       echo
    else
       echo "rEFInd is set as the default boot manager."

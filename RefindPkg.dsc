@@ -3,7 +3,7 @@
   PLATFORM_GUID                  = d6365e1c-b895-426d-a012-46769b2d02a3
   PLATFORM_VERSION               = 4.5.0
   DSC_SPECIFICATION              = 0x00010006
-  SUPPORTED_ARCHITECTURES        = IA32|IPF|X64|EBC|ARM|AARCH64
+  SUPPORTED_ARCHITECTURES        = IA32|IPF|X64|EBC|ARM|AARCH64|LOONGARCH64
   BUILD_TARGETS                  = DEBUG|RELEASE
   SKUID_IDENTIFIER               = DEFAULT
 
@@ -74,6 +74,9 @@
 
 [LibraryClasses.AARCH64]
   CompilerIntrinsicsLib|ArmPkg/Library/CompilerIntrinsicsLib/CompilerIntrinsicsLib.inf
+
+[LibraryClasses.LOONGARCH64]
+  CompilerIntrinsicsLib|LoongArchPkg/Library/CompilerIntrinsicsLib/CompilerIntrinsicsLib.inf
 
 [Components]
   RefindPkg/refind.inf

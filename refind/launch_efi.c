@@ -81,6 +81,8 @@
 #define EFI_STUB_ARCH           0x014c
 #elif defined (EFIAARCH64)
 #define EFI_STUB_ARCH           0xaa64
+#elif defined (EFILOONGARCH64)
+#define EFI_STUB_ARCH           0x6264
 #else
 #endif
 
@@ -110,7 +112,7 @@ static VOID WarnSecureBootError(CHAR16 *Name, BOOLEAN Verbose) {
 // Returns TRUE if this file is a valid EFI loader file, and is proper ARCH
 BOOLEAN IsValidLoader(EFI_FILE *RootDir, CHAR16 *FileName) {
     BOOLEAN         IsValid = TRUE;
-#if defined (EFIX64) | defined (EFI32) | defined (EFIAARCH64)
+#if defined (EFIX64) | defined (EFI32) | defined (EFIAARCH64) | defined (EFILOONGARCH64)
     EFI_STATUS      Status;
     EFI_FILE_HANDLE FileHandle;
     CHAR8           Header[512];

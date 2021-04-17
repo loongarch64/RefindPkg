@@ -159,6 +159,27 @@ ifeq ($(ARCH), aarch64)
   LD_CODE = aarch64elf
 endif
 
+ifeq ($(ARCH), loongarch64)
+  GNUEFI_CFLAGS += -DEFILOONGARCH64
+  FORMAT          = -O binary
+  FORMAT_DRIVER   = -O binary
+  SUBSYSTEM_LDFLAG = -defsym=EFI_SUBSYSTEM=0xa
+  LDFLAGS         += --warn-common --no-undefined --fatal-warnings
+
+  ARCH_CFLAGS = -fno-merge-constants -ffreestanding -DEFILOONGARCH64
+  ifeq ($(MAKEWITH),TIANO)
+    ARCH_CFLAGS += -mcmodel=large -Wno-address -Wno-missing-braces -Wno-array-bounds -ffunction-sections -fdata-sections
+  endif
+  ifeq ($(MAKEWITH),GNUEFI)
+    ARCH_CFLAGS += -fno-stack-check
+  endif
+  ARCHDIR = LoongArch64
+  UC_ARCH = LOONGARCH64
+  FILENAME_CODE = loongarch64
+  LD_CODE = loongarch64elf
+endif
+
+
 # GNU-EFI compilation path uses .o files for compiled object code
 %.o: %.c
 	$(CC) $(CFLAGS) $(ARCH_CFLAGS) $(GNUEFI_CFLAGS) $(LOCAL_GNUEFI_CFLAGS) \
