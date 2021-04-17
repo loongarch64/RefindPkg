@@ -95,6 +95,9 @@ DeterminePlatform() {
     i?86)
         Platform="ia32"
         ;;
+    loongarch64)
+        Platform="loongarch64"
+        ;;
     *)
         echo "Unsupported CPU type; aborting!"
         exit 1

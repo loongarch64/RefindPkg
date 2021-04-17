@@ -35,6 +35,10 @@ ifeq ($(ARCH),aarch64)
   ALL_EFILIBS +=    $(EFILIB)/BaseStackCheckLib/BaseStackCheckLib/OUTPUT/BaseStackCheckLib.lib
 endif
 
+ifeq ($(ARCH),loongarch64)
+  ALL_EFILIBS +=    $(EFILIB)/BaseStackCheckLib/BaseStackCheckLib/OUTPUT/BaseStackCheckLib.lib
+endif
+
 SOURCE_NAMES     = apple AutoGen config crc32 driver_support gpt icns \
                    install  launch_efi launch_legacy lib line_edit linux \
                    log main menu mystrings pointer scan screen

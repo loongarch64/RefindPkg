@@ -117,6 +117,9 @@ tiano:
 ifneq ($(ARCH),aarch64)
 	+make MAKEWITH=TIANO -C $(GPTSYNC_DIR) -f Make.tiano
 endif
+ifneq ($(ARCH),loongarch64)
+	+make MAKEWITH=TIANO -C $(GPTSYNC_DIR) -f Make.tiano
+endif
 #	+make MAKEWITH=TIANO -C $(FS_DIR)
 
 all_tiano: tiano fs_tiano

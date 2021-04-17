@@ -30,6 +30,11 @@ ifeq ($(HOSTARCH),aarch64)
   SUBSYSTEM_LDFLAG = -defsym=EFI_SUBSYSTEM=0xb
 endif
 
+ifeq ($(HOSTARCH),loongarch64)
+  # Set symbol for driver
+  SUBSYSTEM_LDFLAG = -defsym=EFI_SUBSYSTEM=0xb
+endif
+
 $(SHLIB_TARGET): $(OBJS)
 	$(LD) $(GNUEFI_LDFLAGS) $(SUBSYSTEM_LDFLAG) $(OBJS) -o $@ $(LOCAL_LIBS) $(GNUEFI_LIBS)
 

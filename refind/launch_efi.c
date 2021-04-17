@@ -81,6 +81,8 @@
 #define EFI_STUB_ARCH           0x0000014c00004550
 #elif defined (EFIAARCH64)
 #define EFI_STUB_ARCH           0x0000aa6400004550
+#elif defined (EFILOONGARCH64)
+#define EFI_STUB_ARCH           0x0000626400004550
 #else
 #endif
 UINT64 PESig = EFI_STUB_ARCH;
@@ -122,7 +124,7 @@ static VOID WarnSecureBootError(CHAR16 *Name, BOOLEAN Verbose) {
 // gzip loaders.
 UINTN IsValidLoader(EFI_FILE_PROTOCOL *RootDir, CHAR16 *FileName) {
     UINTN           LoaderType = LOADER_TYPE_EFI;
-#if defined (EFIX64) | defined (EFI32) | defined (EFIAARCH64)
+#if defined (EFIX64) | defined (EFI32) | defined (EFIAARCH64) | defined (EFILOONGARCH64)
     BOOLEAN         IsValid;
     EFI_STATUS      Status;
     EFI_FILE_HANDLE FileHandle;

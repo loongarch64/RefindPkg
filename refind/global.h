@@ -179,6 +179,11 @@
 #define MEMTEST_NAMES           L"memtest86.efi,memtest86_aa64.efi,memtest86aa64.efi"
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmaa64.efi"
 #define SHELL_NAMES             L"shell.efi,shellaa64.efi"
+#elif defined(EFILOONGARCH64)
+#define FWUPDATE_NAMES          L"fwuploongarch64.efi"
+#define MEMTEST_NAMES           L"memtest86.efi,memtest86_loongarch64.efi,memtest86loongarch64.efi"
+#define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmloongarch64.efi"
+#define SHELL_NAMES             L"shell.efi,shellloongarch64.efi"
 #else
 #define FWUPDATE_NAMES          L"fwup.efi"
 #define MEMTEST_NAMES           L"memtest86.efi"

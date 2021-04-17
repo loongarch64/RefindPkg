@@ -108,6 +108,18 @@ MakeZipBinary() {
     # Don't copy gptsync_aa64.efi because it won't build in cross-compile environment
     # and because it's likely to be useless on ARM64.
 
+    # Build the LoongArch64 binaries
+    ARCH=loongarch64 make -j1
+    ARCH=loongarch64 make fs
+    mkdir -p refind-bin-$Version/refind/drivers_loongarch64
+    cp --preserve=timestamps drivers_loongarch64/*_loongarch64.efi refind-bin-$Version/refind/drivers_loongarch64/
+    cp --preserve=timestamps filesystems/LICENSE*txt refind-bin-$Version/refind/drivers_loongarch64/
+    cp refind/refind_loongarch64.efi refind-bin-$Version/refind/refind_loongarch64.efi
+    cp refind/refind_loongarch64.efi $StartDir/
+    mkdir -p refind-bin-$Version/refind/tools_loongarch64
+    # Don't copy gptsync_loongarch64.efi because it won't build in cross-compile environment
+    # and because it's likely to be useless on LoongArch64.
+
     # Build the IA32 binaries
     make clean
     ARCH=ia32 make -j1

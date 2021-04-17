@@ -98,6 +98,12 @@
 #define NETBOOT_NAMES           L"ipxe.efi"
 #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootaa64.efi"
 #define FALLBACK_BASENAME       L"bootaa64.efi"
+#elif defined (EFILOONGARCH64)
+#define GPTSYNC_NAMES           L"gptsync.efi,gptsync_loongarch64.efi"
+#define GDISK_NAMES             L"gdisk.efi,gdisk_loongarch64.efi"
+#define NETBOOT_NAMES           L"ipxe.efi"
+#define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootloongarch64.efi"
+#define FALLBACK_BASENAME       L"bootloongarch64.efi"
 #else
 #define GPTSYNC_NAMES           L"gptsync.efi"
 #define GDISK_NAMES             L"gdisk.efi"

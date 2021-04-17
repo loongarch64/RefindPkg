@@ -76,6 +76,8 @@ typedef struct {
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,fbia32.efi"
 #elif defined(EFIAARCH64)
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,fbaa64.efi"
+#elif defined(EFILOONGARCH64)
+#define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,fbloongarch64.efi"
 #else
 #define DONT_SCAN_FILES L"shim.efi,shim-fedora.efi,shim-centos.efi,shimx64.efi,PreLoader.efi,fb.efi"
 #endif
