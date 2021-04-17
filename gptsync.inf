@@ -50,6 +50,11 @@
 # Comment out CompilerIntrinsicsLib when compiling for AARCH64 using UDK2014
   CompilerIntrinsicsLib
 
+[LibraryClasses.LOONGARCH64]
+  BaseStackCheckLib
+# Comment out CompilerIntrinsicsLib when compiling for LOONGARCH64 using UDK2014
+  CompilerIntrinsicsLib
+
 [Guids]
   gEfiAcpiTableGuid
   gEfiAcpi10TableGuid
@@ -135,3 +140,7 @@
 [BuildOptions.AARCH64]
   XCODE:*_*_*_CC_FLAGS = -Os  -DEFIAARCH64 -D__MAKEWITH_TIANO
   GCC:*_*_*_CC_FLAGS = -Os -DEFIAARCH64 -D__MAKEWITH_TIANO
+
+[BuildOptions.LOONGARCH64]
+  XCODE:*_*_*_CC_FLAGS = -Os  -DEFILOONGARCH64 -D__MAKEWITH_TIANO
+  GCC:*_*_*_CC_FLAGS = -Os -DEFILOONGARCH64 -D__MAKEWITH_TIANO

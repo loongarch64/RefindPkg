@@ -102,6 +102,14 @@
 #define MEMTEST_NAMES           L"memtest86.efi,memtest86_aa64.efi,memtest86aa64.efi,bootaa64.efi"
 #define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootaa64.efi"
 #define FALLBACK_BASENAME       L"bootaa64.efi"
+#elif defined (EFILOONGARCH64)
+#define SHELL_NAMES             L"\\EFI\\tools\\shell.efi,\\EFI\\tools\\shellloongarch64.efi,\\shell.efi,\\shellloongarch64.efi"
+#define GPTSYNC_NAMES           L"\\EFI\\tools\\gptsync.efi,\\EFI\\tools\\gptsync_loongarch64.efi"
+#define GDISK_NAMES             L"\\EFI\\tools\\gdisk.efi,\\EFI\\tools\\gdisk_loongarch64.efi"
+#define NETBOOT_NAMES           L"\\EFI\\tools\\ipxe.efi"
+#define MEMTEST_NAMES           L"memtest86.efi,memtest86_loongarch64.efi,memtest86loongarch64.efi,bootloongarch64.efi"
+#define FALLBACK_FULLNAME       L"EFI\\BOOT\\bootloongarch64.efi"
+#define FALLBACK_BASENAME       L"bootloongarch64.efi"
 #else
 #define SHELL_NAMES             L"\\EFI\\tools\\shell.efi,\\shell.efi"
 #define GPTSYNC_NAMES           L"\\EFI\\tools\\gptsync.efi"

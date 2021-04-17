@@ -167,6 +167,9 @@ VOID AboutrEFInd(VOID)
 #elif defined(EFIAARCH64)
         AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: ARM (64 bit); Secure Boot %s",
                                               secure_mode() ? L"active" : L"inactive"));
+#elif defined(EFILOONGARCH64)
+        AddMenuInfoLine(&AboutMenu, PoolPrint(L" Platform: LoongArch (64 bit); Secure Boot %s",
+                                              secure_mode() ? L"active" : L"inactive"));
 #else
         AddMenuInfoLine(&AboutMenu, L" Platform: unknown");
 #endif

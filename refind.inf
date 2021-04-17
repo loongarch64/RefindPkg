@@ -22,7 +22,7 @@
 #
 # The following information is for reference only and not required by the build tools.
 #
-#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC AARCH64
+#  VALID_ARCHITECTURES           = IA32 X64 IPF EBC AARCH64 LOONGARCH64
 #
 
 [Sources]
@@ -95,6 +95,11 @@
 [LibraryClasses.AARCH64]
   BaseStackCheckLib
 # Comment out CompilerIntrinsicsLib when compiling for AARCH64 using UDK2014
+  CompilerIntrinsicsLib
+
+[LibraryClasses.LOONGARCH64]
+  BaseStackCheckLib
+# Comment out CompilerIntrinsicsLib when compiling for LOONGARCH64 using UDK2014
   CompilerIntrinsicsLib
 
 [Guids]
@@ -182,3 +187,7 @@
 [BuildOptions.AARCH64]
   XCODE:*_*_*_CC_FLAGS = -Os  -DEFIAARCH64 -D__MAKEWITH_TIANO
   GCC:*_*_*_CC_FLAGS = -Os -DEFIAARCH64 -D__MAKEWITH_TIANO
+
+[BuildOptions.LOONGARCH64]
+  XCODE:*_*_*_CC_FLAGS = -Os  -DEFILOONGARCH64 -D__MAKEWITH_TIANO
+  GCC:*_*_*_CC_FLAGS = -Os -DEFILOONGARCH64 -D__MAKEWITH_TIANO

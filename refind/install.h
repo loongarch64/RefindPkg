@@ -28,6 +28,11 @@
 #define INST_DRIVERS_SUBDIR L"drivers_aa64"
 #define INST_REFIND_NAME L"refind_aa64.efi"
 #define INST_PLATFORM_EXTENSION L"_aa64.efi"
+#elif defined(EFILOONGARCH64)
+#define INST_DIRECTORIES L"\\EFI,\\EFI\\refind,\\EFI\\refind\\icons,\\EFI\\refind\\drivers_loongarch64"
+#define INST_DRIVERS_SUBDIR L"drivers_loongarch64"
+#define INST_REFIND_NAME L"refind_loongarch64.efi"
+#define INST_PLATFORM_EXTENSION L"_loongarch64.efi"
 #else
 #define INST_DIRECTORIES L"\\EFI,\\EFI\\refind,\\EFI\\refind\\icons,\\EFI\\refind\\drivers"
 #define INST_DRIVERS_SUBDIR L"drivers"
