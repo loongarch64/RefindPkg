@@ -58,7 +58,7 @@
 #include "../include/refit_call_wrapper.h"
 #include "../include/version.h"
 
-#define DEBUG_LEVEL 0
+#define DEBUG_LEVEL 1
 
 #ifndef FSTYPE
 /** The file system type name to use. */
