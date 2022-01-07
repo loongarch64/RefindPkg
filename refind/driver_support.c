@@ -83,6 +83,8 @@
 #define DRIVER_DIRS             L"drivers,drivers_ia32"
 #elif defined (EFIAARCH64)
 #define DRIVER_DIRS             L"drivers,drivers_aa64"
+#elif defined (EFILOONGARCH64)
+#define DRIVER_DIRS             L"drivers,drivers_loongarch64"
 #else
 #define DRIVER_DIRS             L"drivers"
 #endif

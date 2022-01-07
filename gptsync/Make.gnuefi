@@ -23,6 +23,10 @@ ifeq ($(ARCH),aarch64)
   TARGET = gptsync_aa64.efi
 endif
 
+ifeq ($(ARCH),loongarch64)
+  TARGET = gptsync_loongarch64.efi
+endif
+
 all: $(TARGET)
 
 SHLIB_TARGET = $(subst .efi,.so,$(TARGET))

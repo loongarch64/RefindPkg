@@ -55,7 +55,7 @@
 
 #include "../libeg/libeg.h"
 
-#define REFIT_DEBUG (0)
+#define REFIT_DEBUG (1)
 
 // Tag classifications; used in various ways.
 #define TAG_ABOUT            (1)
@@ -172,6 +172,8 @@
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmia32.efi"
 #elif defined(EFIAARCH64)
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmaa64.efi"
+#elif defined(EFILOONGARCH64)
+#define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi,mmloongarch64.efi"
 #else
 #define MOK_NAMES               L"MokManager.efi,HashTool.efi,HashTool-signed.efi,KeyTool.efi,KeyTool-signed.efi"
 #endif
@@ -182,6 +184,8 @@
 #define FWUPDATE_NAMES          L"fwupia32.efi"
 #elif defined(EFIAARCH64)
 #define FWUPDATE_NAMES          L"fwupaa64.efi"
+#elif defined(EFILOONGARCH64)
+#define FWUPDATE_NAMES          L"fwuploongarch64.efi"
 #else
 #define FWUPDATE_NAMES          L"fwup.efi"
 #endif
